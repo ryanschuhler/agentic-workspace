@@ -37,8 +37,7 @@ function check(context, node, messageNode) {
 
 	if (/^(error|failed|failure)\b/i.test(text)) {
 		context.report({messageId: 'unableTo', node: messageNode});
-	}
-	else if (/\w: |\w=\S/.test(text)) {
+	} else if (/\w: |\w=\S/.test(text)) {
 		context.report({messageId: 'labelPunctuation', node: messageNode});
 	}
 }

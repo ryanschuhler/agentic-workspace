@@ -16,7 +16,7 @@ const ruleTester = new RuleTester({
 	languageOptions: {parserOptions: {ecmaFeatures: {jsx: true}}},
 });
 
-describe('MOD-ESLINT-PLUGIN-LOCAL', () => {
+describe('eslint-plugin-local', () => {
 	ruleTester.run('no-comments', plugin.rules['no-comments'], {
 		invalid: [
 			{
@@ -51,7 +51,7 @@ describe('MOD-ESLINT-PLUGIN-LOCAL', () => {
 					filename: '/src/api.js',
 				},
 			],
-		}
+		},
 	);
 
 	ruleTester.run('log-message-form', plugin.rules['log-message-form'], {

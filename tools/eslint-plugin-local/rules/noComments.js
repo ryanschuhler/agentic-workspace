@@ -7,7 +7,8 @@ function isAllowed(comment) {
 	const value = comment.value.trim();
 
 	return (
-		(comment.type === 'Block' && value.includes('SPDX-FileCopyrightText')) ||
+		(comment.type === 'Block' &&
+			value.includes('SPDX-FileCopyrightText')) ||
 		value.startsWith('eslint-') ||
 		value.startsWith('global ')
 	);

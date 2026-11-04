@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-export const PLAN_ID_PATTERN = /\b(?:FLOW|MOD|OBJECT|REST|ROUTE)-[A-Z0-9]+(?:-[A-Z0-9]+)*\b/;
+export const PLAN_ID_PATTERN =
+	/\b(?:FLOW|MOD|OBJECT|REST|ROUTE)-[A-Z0-9]+(?:-[A-Z0-9]+)*\b/;
 
 export default {
 	create(context) {
@@ -26,7 +27,7 @@ export default {
 		},
 		messages: {
 			missingPlanId:
-				'Name the plan item this test verifies in a describe title, for example describe(\'ROUTE-HELLO-WORLD\'). Find or add the row in tests/plan/.',
+				"Name the plan item this test verifies in a describe title, for example describe('ROUTE-HELLO-WORLD'). Find or add the row in tests/plan/.",
 		},
 		schema: [],
 		type: 'problem',

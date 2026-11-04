@@ -35,3 +35,7 @@ repositories {
 test {
 	useJUnitPlatform()
 }
+
+tasks.named("jar") {
+	enabled = false
+}

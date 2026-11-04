@@ -22,7 +22,7 @@ describe('MOD-API', () => {
 		const [url, options] = fetchMock.mock.calls[0];
 
 		expect(url).toBe(
-			`${window.location.origin}/o/headless-admin-user/v1.0/my-user-account`
+			`${window.location.origin}/o/headless-admin-user/v1.0/my-user-account`,
 		);
 		expect(options.headers['x-csrf-token']).toBeDefined();
 	});

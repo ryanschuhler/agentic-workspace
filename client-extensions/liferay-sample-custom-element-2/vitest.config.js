@@ -16,7 +16,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@liferay/oauth2-provider-web/client': fileURLToPath(
-				new URL('./test/oauth2Client.js', import.meta.url)
+				new URL('./test/oauth2Client.js', import.meta.url),
 			),
 		},
 	},

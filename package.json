@@ -11,17 +11,18 @@
 		"jsonc-eslint-parser": "^2.4.0",
 		"prettier": "^3.4.2",
 		"typescript": "^5.7.2",
-		"typescript-eslint": "^8.18.2"
+		"typescript-eslint": "^8.18.2",
+		"yaml": "^2.6.1"
 	},
 	"engines": {
-		"node": ">=23.6.0"
+		"node": ">=24.2.0"
 	},
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"check": "yarn lint && yarn lint:fs && yarn test:tools && yarn test:unit && yarn plan:check && yarn health:check && yarn commits:check",
+		"verify": "yarn lint && yarn lint:fs && yarn test:tools && yarn test:unit && yarn plan:check && yarn health:check && yarn commits:check",
 		"commits:check": "node tools/checks/commitSplit.ts",
-		"format": "prettier --write .",
+		"format": "prettier --write eslint.config.js tests tools \"client-extensions/*/src/**/*.js\" \"client-extensions/*/*.config.js\"",
 		"health": "node tools/health/build.ts",
 		"health:check": "node tools/health/build.ts --check",
 		"health:diff": "node tools/health/diff.ts",
@@ -34,7 +35,7 @@
 		"prepare": "git config core.hooksPath .githooks || true",
 		"test:e2e": "playwright test --config tests/playwright.config.ts --project e2e",
 		"test:integration": "playwright test --config tests/playwright.config.ts --project integration",
-		"test:java": "./gradlew :client-extensions:liferay-sample-etc-spring-boot:test",
+		"test:java": "scripts/gradlew.sh :client-extensions:liferay-sample-etc-spring-boot:test",
 		"test:tools": "node --test \"tools/**/*.test.ts\"",
 		"test:unit": "yarn workspace @liferay/liferay-sample-custom-element-2 test"
 	},

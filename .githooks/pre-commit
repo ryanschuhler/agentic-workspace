@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+set -e
+
+FILES=$(git diff --cached --name-only --diff-filter=ACMR -- '*.js' '*.json' '*.ts')
+
+if [ -n "${FILES}" ]
+then
+	echo "${FILES}" | xargs node_modules/.bin/eslint --no-warn-ignored
+fi
+
+node_modules/.bin/ls-lint

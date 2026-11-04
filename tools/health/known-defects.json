@@ -1,0 +1,14 @@
+{
+	"oauth2-application-missing:liferay-sample-etc-node-oaua": {
+		"note": "The Comic component calls the Node sidecar, which this workspace does not copy from the sample workspace.",
+		"ticket": "EXAMPLE-1"
+	},
+	"object-action-no-handler:Sample/SampleNodeUpdate1": {
+		"note": "The Sample object keeps the Node sidecar actions of the upstream sample. Add the Node sidecar or drop the actions.",
+		"ticket": "EXAMPLE-1"
+	},
+	"object-action-no-handler:Sample/SampleNodeUpdate2": {
+		"note": "The Sample object keeps the Node sidecar actions of the upstream sample. Add the Node sidecar or drop the actions.",
+		"ticket": "EXAMPLE-1"
+	}
+}

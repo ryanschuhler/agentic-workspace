@@ -60,6 +60,11 @@ export default [
 		plugins: {local},
 		rules: {
 			'local/log-message-form': 'error',
+		},
+	},
+	{
+		files: ['tests/**/*.ts'],
+		rules: {
 			'local/test-cites-plan-id': 'error',
 		},
 	},

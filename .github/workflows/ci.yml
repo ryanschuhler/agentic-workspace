@@ -1,0 +1,46 @@
+name: CI
+
+on:
+    pull_request:
+    push:
+        branches:
+            -   main
+
+jobs:
+    harness:
+        name: Lint, unit tests, plan, and health
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+            -   uses: actions/setup-node@v4
+                with:
+                    cache: yarn
+                    node-version: 24
+            -   run: yarn install --frozen-lockfile
+            -   run: yarn lint
+            -   run: yarn lint:fs
+            -   run: yarn test:tools
+            -   run: yarn test:unit
+            -   run: yarn plan:check
+            -   run: yarn health:check
+            -   if: github.event_name == 'pull_request'
+                run: yarn commits:check origin/${{ github.base_ref }}
+            -   if: github.event_name == 'pull_request'
+                run: yarn health:diff origin/${{ github.base_ref }} >> "${GITHUB_STEP_SUMMARY}"
+            -   run: yarn health
+            -   uses: actions/upload-artifact@v4
+                with:
+                    name: workspace-health
+                    path: tools/health/build
+    java:
+        name: JUnit
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v4
+            -   uses: actions/setup-java@v4
+                with:
+                    distribution: temurin
+                    java-version: 21
+            -   run: ./gradlew :client-extensions:liferay-sample-etc-spring-boot:test

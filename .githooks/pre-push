@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+set -e
+
+node tools/plan/check.ts > /dev/null || node tools/plan/check.ts
+node tools/health/build.ts --check
+node tools/checks/commitSplit.ts

@@ -1,0 +1,64 @@
+services:
+    database:
+        environment:
+            POSTGRES_DB: lportal
+            POSTGRES_HOST_AUTH_METHOD: trust
+        healthcheck:
+            interval: 5s
+            retries: 20
+            test: pg_isready --username postgres
+        image: postgres:16
+        volumes:
+            -   database:/var/lib/postgresql/data
+    liferay:
+        depends_on:
+            database:
+                condition: service_healthy
+        environment:
+            LIFERAY_DISABLE_TRIAL_LICENSE: "true"
+            LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_DRIVER_UPPERCASEC_LASS_UPPERCASEN_AME: org.postgresql.Driver
+            LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_PASSWORD: ""
+            LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_URL: jdbc:postgresql://database:5432/lportal
+            LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_USERNAME: postgres
+            LIFERAY_SETUP_PERIOD_WIZARD_PERIOD_ENABLED: "false"
+            LIFERAY_TERMS_PERIOD_OF_PERIOD_USE_PERIOD_REQUIRED: "false"
+            LIFERAY_USERS_PERIOD_REMINDER_PERIOD_QUERIES_PERIOD_ENABLED: "false"
+        healthcheck:
+            interval: 10s
+            retries: 90
+            start_period: 60s
+            test: curl --fail --silent http://localhost:8080/c/portal/status
+        image: ${LIFERAY_IMAGE:-liferay/dxp:2025.q1.0-lts}
+        ports:
+            -   ${LIFERAY_PORT:-8080}:8080
+            -   ${SIDECAR_PORT:-58081}:58081
+        volumes:
+            -   client_extensions:/opt/liferay/osgi/client-extensions
+            -   data:/opt/liferay/data
+            -   routes:/opt/liferay/routes
+    sidecar:
+        build:
+            context: client-extensions/liferay-sample-etc-spring-boot/build/libs
+            dockerfile: ../../Dockerfile
+        depends_on:
+            liferay:
+                condition: service_healthy
+        environment:
+            LIFERAY_ROUTES_CLIENT_EXTENSION: /opt/liferay/routes/default/liferay-sample-etc-spring-boot
+            LIFERAY_ROUTES_DXP: /opt/liferay/routes/default/dxp
+        healthcheck:
+            interval: 10s
+            retries: 30
+            start_period: 30s
+            test: curl --fail --silent http://localhost:58081/ready
+        network_mode: service:liferay
+        profiles:
+            -   sidecar
+        volumes:
+            -   routes:/opt/liferay/routes:ro
+
+volumes:
+    client_extensions:
+    data:
+    database:
+    routes:
