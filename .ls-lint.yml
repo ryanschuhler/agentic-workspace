@@ -1,0 +1,22 @@
+ls:
+    client-extensions:
+        .dir: kebab-case
+    client-extensions/liferay-sample-custom-element-2/src:
+        .dir: kebab-case
+        .js: camelCase | PascalCase
+        .test.js: camelCase | PascalCase
+    tests:
+        .dir: kebab-case
+        .spec.ts: kebab-case
+        .ts: camelCase
+    tools:
+        .dir: kebab-case
+        .ts: camelCase
+        .test.ts: camelCase
+
+ignore:
+    - .git
+    - node_modules
+    - client-extensions/liferay-sample-custom-element-2/build
+    - client-extensions/liferay-sample-custom-element-2/node_modules
+    - tools/health/build

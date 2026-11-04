@@ -1,0 +1,13 @@
+.DS_Store
+.env
+.gradle
+.idea
+.team
+/bundles
+/tools/health/build
+build
+coverage
+dist
+node_modules
+playwright-report
+test-results

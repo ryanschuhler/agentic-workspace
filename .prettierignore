@@ -1,0 +1,5 @@
+*.java
+*.md
+build
+client-extensions/liferay-sample-batch/batch
+node_modules

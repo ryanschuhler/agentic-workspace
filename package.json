@@ -1,0 +1,46 @@
+{
+	"devDependencies": {
+		"@eslint/js": "^9.17.0",
+		"@ls-lint/ls-lint": "^2.2.3",
+		"@playwright/test": "^1.49.1",
+		"eslint": "^9.17.0",
+		"eslint-plugin-jsonc": "^2.18.2",
+		"eslint-plugin-react": "^7.37.3",
+		"eslint-plugin-react-hooks": "^5.1.0",
+		"globals": "^15.14.0",
+		"jsonc-eslint-parser": "^2.4.0",
+		"prettier": "^3.4.2",
+		"typescript": "^5.7.2",
+		"typescript-eslint": "^8.18.2"
+	},
+	"engines": {
+		"node": ">=23.6.0"
+	},
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"check": "yarn lint && yarn lint:fs && yarn test:tools && yarn test:unit && yarn plan:check && yarn health:check && yarn commits:check",
+		"commits:check": "node tools/checks/commitSplit.ts",
+		"format": "prettier --write .",
+		"health": "node tools/health/build.ts",
+		"health:check": "node tools/health/build.ts --check",
+		"health:diff": "node tools/health/diff.ts",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"lint:fs": "ls-lint",
+		"metrics": "node tools/metrics/prMetrics.ts",
+		"plan:check": "node tools/plan/check.ts",
+		"plan:scaffold": "node tools/plan/scaffold.ts",
+		"prepare": "git config core.hooksPath .githooks || true",
+		"test:e2e": "playwright test --config tests/playwright.config.ts --project e2e",
+		"test:integration": "playwright test --config tests/playwright.config.ts --project integration",
+		"test:java": "./gradlew :client-extensions:liferay-sample-etc-spring-boot:test",
+		"test:tools": "node --test \"tools/**/*.test.ts\"",
+		"test:unit": "yarn workspace @liferay/liferay-sample-custom-element-2 test"
+	},
+	"workspaces": {
+		"packages": [
+			"client-extensions/liferay-sample-custom-element-2"
+		]
+	}
+}
