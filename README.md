@@ -6,6 +6,10 @@ The companion repository for the DevCon 2026 talk **The Agentic Workspace**. It 
 
 The client extensions are plain copies of the Liferay sample workspace (`workspaces/liferay-sample-workspace` in `liferay-portal`). They are here to show where your own code goes. Everything else is the harness.
 
+## Slides
+
+The talk itself is in [`slides/`](./slides/): a [Slidev](https://sli.dev) deck (`slides.md`) and the exported `The Agentic Workspace.pptx`. It is a separate npm project, so run `npm install` and then `npm run dev` inside `slides/`.
+
 ## Quick Start
 
 ```bash
